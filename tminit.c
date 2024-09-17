@@ -215,7 +215,7 @@ static void thrustmaster_model_handler(struct urb *urb)
 				tm_wheel->response->type);
 		return;
 	}
-	
+
 	for (i = 0; i < tm_wheels_infos_length && !twi; i++)
 		if (tm_wheels_infos[i].model == model)
 			twi = tm_wheels_infos + i;
