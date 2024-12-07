@@ -40,7 +40,7 @@ static const struct usb_device_id thrustmaster_usb_devices[] = {
 MODULE_DEVICE_TABLE(usb, thrustmaster_usb_devices);
 
 static struct usb_driver thrustmaster_driver = {
-	.name = "usb-thrustmaster",
+	.name = "usb-tminit-new",
 	.id_table = thrustmaster_usb_devices,
 	.probe = thrustmaster_usb_probe,
 	.disconnect = thrustmaster_usb_disconnect,
