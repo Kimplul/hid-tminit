@@ -302,6 +302,15 @@ int thrustmaster_probe(struct tm_wheel *tm_wheel, struct usb_interface *interfac
 	tm_wheel->interface = usb_get_intf(interface);
 
 	switch (le16_to_cpu(udev->descriptor.idProduct)) {
+	case 0xb65d:
+		/* T500RS in boot mode, need to switch to normal mode (0xb65e).
+		 * We might also support 0xb65f (advanced mode/firmware update)
+		 * in the future but we would more captures. */
+		ret = thrustmaster_submit_change(tm_wheel, 0x0002);
+		if (ret)
+			goto error6;
+
+		return ret;
 	case 0xb69c:
 		/* T128 resets itself for whatever reason, try to
 		 * circumvent it. Ugly magic constant, should probably add a
