@@ -35,6 +35,8 @@ static void thrustmaster_usb_disconnect(struct usb_interface *interface)
 static const struct usb_device_id thrustmaster_usb_devices[] = {
 	{ USB_DEVICE(0x044f, 0xb69c) },
 	{ USB_DEVICE(0x044f, 0xb691) },
+	/* T598 */
+	{ USB_DEVICE(0x044f, 0xb6a5) },
 	{}
 };
 
