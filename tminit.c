@@ -302,6 +302,7 @@ int thrustmaster_probe(struct tm_wheel *tm_wheel, struct usb_interface *interfac
 	tm_wheel->interface = usb_get_intf(interface);
 
 	switch (le16_to_cpu(udev->descriptor.idProduct)) {
+	case 0xb6a5: /* T598 as well, maybe? */
 	case 0xb69c:
 		/* T128 resets itself for whatever reason, try to
 		 * circumvent it. Ugly magic constant, should probably add a
