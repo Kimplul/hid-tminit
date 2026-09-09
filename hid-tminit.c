@@ -49,6 +49,7 @@ static void thrustmaster_hid_disconnect(struct hid_device *hdev)
 static const struct hid_device_id thrustmaster_hid_devices[] = {
 	{ HID_USB_DEVICE(0x044f, 0xb65d) },
 	{ HID_USB_DEVICE(0x044f, 0xb664) },
+	{ HID_USB_DEVICE(0x044f, 0xb66d) },
 	{ HID_USB_DEVICE(0x044f, 0xb69c) },
 	{}
 };
