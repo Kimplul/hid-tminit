@@ -75,7 +75,8 @@ static const struct tm_wheel_info tm_wheels_infos[] = {
 	{0x03, 0x06, 0x0006, "Thrustmaster T150RS"},
 	{0x07, 0x0a, 0x000a, "Thrustmaster TS-XW"},
 	{0x06, 0x09, 0x0009, "Thrustmaster TS-PC"},
-	{0x00, 0x09, 0x000b, "Thrustmaster T128"}
+	{0x00, 0x09, 0x000b, "Thrustmaster T128"},
+	{0x05, 0x08, 0x0008, "Thrustmaster T-GT II"}
 	//{0x04, 0x07, 0x0001, "Thrustmaster TMX"}
 };
 
@@ -308,6 +309,20 @@ int thrustmaster_probe(struct tm_wheel *tm_wheel, struct usb_interface *interfac
 		 * circumvent it. Ugly magic constant, should probably add a
 		 * define or something */
 		ret = thrustmaster_submit_change(tm_wheel, 0x000b);
+		if (ret)
+			goto error6;
+
+		return ret;
+	case 0xb66d:
+		/* T-GT II in its T300RS compat mode; actual T300RSes share
+		 * this id but report a different bcdDevice */
+		if (le16_to_cpu(udev->descriptor.bcdDevice) != 0x0700) {
+			ret = -ENODEV;
+			goto error6;
+		}
+		/* bounce the wheel into the bootloader, from where the flow
+		 * below boots it into its native mode */
+		ret = thrustmaster_submit_change(tm_wheel, 0x0001);
 		if (ret)
 			goto error6;
 
